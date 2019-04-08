@@ -1,11 +1,8 @@
 {
-    "title": "Landing Page",
-    "name": "startbootstrap-landing-page",
-    "version": "5.0.4",
-    "scripts": {
-        "start": "gulp watch"
-    },
-    "description": "An HTML landing page template built with Bootstrap",
+    "title": "Heroic Features",
+    "name": "startbootstrap-heroic-features",
+    "version": "4.1.2",
+    "description": "An HTML template with a hero heading and feature cards built with Bootstrap",
     "keywords": [
         "css",
         "sass",
@@ -14,9 +11,9 @@
         "theme",
         "template"
     ],
-    "homepage": "https://startbootstrap.com/template-overviews/landing-page",
+    "homepage": "https://startbootstrap.com/template-overviews/heroic-features",
     "bugs": {
-        "url": "https://github.com/BlackrockDigital/startbootstrap-landing-page/issues",
+        "url": "https://github.com/BlackrockDigital/startbootstrap-heroic-features/issues",
         "email": "feedback@startbootstrap.com"
     },
     "license": "MIT",
@@ -26,24 +23,14 @@
     ],
     "repository": {
         "type": "git",
-        "url": "https://github.com/BlackrockDigital/startbootstrap-landing-page.git"
+        "url": "https://github.com/BlackrockDigital/startbootstrap-heroic-features.git"
     },
     "dependencies": {
-        "@fortawesome/fontawesome-free": "5.8.1",
-        "bootstrap": "4.3.1",
-        "jquery": "3.3.1",
-        "simple-line-icons": "^2.4.1"
+        "bootstrap": "4.2.1",
+        "jquery": "3.3.1"
     },
     "devDependencies": {
         "browser-sync": "2.26.3",
-        "del": "4.0.0",
-        "gulp": "4.0.0",
-        "gulp-autoprefixer": "6.0.0",
-        "gulp-clean-css": "4.0.0",
-        "gulp-header": "2.0.7",
-        "gulp-plumber": "^1.2.1",
-        "gulp-rename": "1.4.0",
-        "gulp-sass": "4.0.2",
-        "merge-stream": "^1.0.1"
+        "gulp": "4.0.0"
     }
 }
