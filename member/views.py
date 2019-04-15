@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login as django_login, logout as django_logout, authenticate
 from .forms import LoginForm, SignupForm
+from main.models import Items 
 
 
 def login(request):
@@ -40,3 +41,11 @@ def signup(request):
         'signup_form': signup_form,
     }
     return render(request, 'member/signup.html', context)
+
+def items(request):
+    item_list = Items.objects.all().order_by('uploadDate')
+    return render(request, 'member/items.html',{'item_list':item_list})
+
+def write(request):
+    return render(request,'member/write.html')
+
