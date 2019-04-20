@@ -28,6 +28,8 @@ DEBUG = True
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.pythonanywhere.com']
 
 
+AUTH_USER_MODEL = 'member.User'
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -40,6 +42,10 @@ INSTALLED_APPS = [
     'main',
     'member',
 ]
+
+LOGIN_URL = '/member/login/'
+LOGOUT_URL = '/member/logout/'
+LOGIN_REDIRECT_URL = '/'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

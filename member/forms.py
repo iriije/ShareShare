@@ -1,8 +1,112 @@
 from django import forms
-from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.forms import ReadOnlyPasswordHashField
+from django.utils.translation import ugettext_lazy as _
 
-User = get_user_model()
+from .models import User, UserManager
+
+from django.contrib.auth.forms import AuthenticationForm
+
+class SignupForm(forms.ModelForm):
+    email = forms.EmailField(
+        label=_('Email'),
+        required=True,
+        widget=forms.EmailInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': _('Email address'),
+                'required': 'True',
+            }
+        )
+    )
+    nickname = forms.CharField(
+        label=_('Nickname'),
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': _('Nickname'),
+                'required': 'True',
+            }
+        )
+    )
+    password1 = forms.CharField(
+        label=_('Password'),
+        widget=forms.PasswordInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': _('Password'),
+                'required': 'True',
+            }
+        )
+    )
+    password2 = forms.CharField(
+        label=_('Password confirmation'),
+        widget=forms.PasswordInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': _('Password confirmation'),
+                'required': 'True',
+            }
+        )
+    )
+
+    class Meta:
+        model = User
+        fields = ('email', 'nickname')
+
+    def clean_password2(self):
+        password1 = self.cleaned_data.get("password1")
+        password2 = self.cleaned_data.get("password2")
+        if password1 and password2 and password1 != password2:
+            raise forms.ValidationError("Passwords don't match")
+        return password2
+
+    def save(self, commit=True):
+        user = super(SignupForm, self).save(commit=False)
+        user.email = UserManager.normalize_email(self.cleaned_data['email'])
+        user.set_password(self.cleaned_data["password1"])
+        if commit:
+            user.save()
+        return user
+
+class ShareeSignupForm(SignupForm):
+    location = forms.CharField(
+        label=_('Location'),
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': _('Location'),
+                'required': 'True',
+            }
+        )
+    )
+
+    class Meta:
+        model = User
+        fields = ('email', 'nickname', 'location')
+
+    def save(self, commit=True):
+        user = super(ShareeSignupForm, self).save(commit=False)
+        user.email = UserManager.normalize_email(self.cleaned_data['email'])
+        user.set_password(self.cleaned_data["password1"])
+        if commit:
+            user.save()
+        return user
+
+
+class SharerSignupForm(SignupForm):
+    class Meta:
+        model = User
+        fields = ('email', 'nickname')
+
+    def save(self, commit=True):
+        user = super(SharerSignupForm, self).save(commit=False)
+        user.email = UserManager.normalize_email(self.cleaned_data['email'])
+        user.set_password(self.cleaned_data["password1"])
+        if commit:
+            user.save()
+        return user
 
 
 class LoginForm(AuthenticationForm):
@@ -13,28 +117,3 @@ class LoginForm(AuthenticationForm):
             self.fields[field_name].widget.attrs.update({
                 'class': 'form-control'
             })
-
-
-class SignupForm(UserCreationForm):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        class_update_fields = ['password1', 'password2']
-        for field_name in class_update_fields:
-            self.fields[field_name].widget.attrs.update({
-                'class': 'form-control'
-            })
-
-    class Meta:
-        model = User
-        fields = (
-            'username',
-            'password1',
-            'password2',
-        )
-        widgets = {
-            'username': forms.TextInput(
-                attrs={
-                    'class': 'form-control',
-                }
-            ),
-        }
