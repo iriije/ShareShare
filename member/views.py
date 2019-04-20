@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login as django_login, logout as django_logout, authenticate
 from .forms import ShareeSignupForm, SharerSignupForm, LoginForm
+from .forms import LoginForm, SignupForm
 
 
 def login(request):

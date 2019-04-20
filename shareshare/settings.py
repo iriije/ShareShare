@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'main',
     'member',
+    'item',
 ]
 
 LOGIN_URL = '/member/login/'

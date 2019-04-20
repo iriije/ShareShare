@@ -103,6 +103,7 @@ class SharerSignupForm(SignupForm):
     def save(self, commit=True):
         user = super(SharerSignupForm, self).save(commit=False)
         user.email = UserManager.normalize_email(self.cleaned_data['email'])
+        user.is_sharer = True
         user.set_password(self.cleaned_data["password1"])
         if commit:
             user.save()
