@@ -7,7 +7,7 @@
 <div class="container">
         <ul>
             {% if user.is_authenticated %}
-            <li class='btn btn-primary'><a href = "{% url 'member:write' %}">글쓰기</a></li>
+            <li class='btn btn-primary'><a href = "{% url 'item:regist' %}">글쓰기</a></li>
             {% else %}
             <li class='btn btn-primary'><a  href = "{% url 'member:login'%}">글을 쓰려면 로그인 하세요</a></li>
             {% endif %}

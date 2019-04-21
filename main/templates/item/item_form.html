@@ -1,0 +1,29 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Regist Item{% endblock %}
+{% block content %}
+
+<div class="item_form">
+	<form action="" method="post">
+		{% csrf_token %}
+		{% for field in item_form %}
+			<div class="form-group">
+				{{ field.label_tag }}
+				{{ field }}
+				{% if field.errors %}
+					{% for error in field.errors %}
+					<span class="help-block">{{ error }}</span>
+					{% endfor %}
+				{% endif %}
+			</div>
+		{% endfor %}
+
+		{% if item_form.non_field_errors %}
+			{% for error in item_form.non_field_errors %}
+			<p class="text-danger"><b>{{ error }}</b></p>
+			{% endfor %}
+		{% endif %}
+		<button class="btn btn-primary btn-block">등록</button>
+	</form>
+</div>
+{% endblock %}

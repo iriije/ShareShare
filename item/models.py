@@ -6,17 +6,32 @@ class Sharer(models.Model):
     userMail = models.CharField(max_length=100)
 
 class ItemType(models.Model):
-    name = models.CharField(max_length=10)
+    BOOK = 'B'
+    CAMP = 'C'
+    LIFE = 'L'
+    WEAR = 'W'
+    ELSE = 'E'
+
+    CATEGORY_CHOICES = (
+        (BOOK, '도서/서적'),
+        (CAMP, '캠핑/레져'),
+        (LIFE, '생활/가전'),
+        (WEAR, '의류/패션'),
+        (ELSE, '사물/잡화')
+    )
+
+    name = models.CharField(max_length=10, choices = CATEGORY_CHOICES, default=ELSE)
+
 
     def __str__(self):
         return self.name
 
-class Items(models.Model):
-    itemId = models.IntegerField(primary_key=True)
+
+class Item(models.Model):
     name = models.CharField(max_length=20, help_text='공유하고 싶은 item의 이름을 입력해주세요.')
     itemType = models.ManyToManyField(ItemType)
     photo = models.ImageField()
-    userMail = models.ForeignKey(Sharer,on_delete=models.DO_NOTHING)
+    #userMail = models.ForeignKey(Sharer,on_delete=models.DO_NOTHING)
     deposit = models.IntegerField()
     rentalFeePerHour = models.IntegerField()
     
@@ -24,7 +39,7 @@ class Items(models.Model):
     REPAIR = 'R'
     SHARED = 'S'
     BROKEN = 'B'
-
+    
     STATUS_CHOICES = (
         (AVAILABLE,'이용 가능'),
         (REPAIR, '수리중'),

@@ -32,7 +32,7 @@ class UserManager(BaseUserManager):
         return user
 
 
-class User(AbstractBaseUser):
+class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(
         verbose_name=_('Email address'),
         max_length=255,
@@ -64,8 +64,8 @@ class User(AbstractBaseUser):
         max_length=10,
         blank=True
     )
-
-    object = UserManager()
+    
+    objects = UserManager()
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['nickname',]
@@ -74,6 +74,10 @@ class User(AbstractBaseUser):
         verbose_name = _('user')
         verbose_name_plural = _('users')
         ordering = ('-date_joined',)
+
+    @property
+    def is_staff(self):
+        return self.is_superuser
 
     def __str__(self):
         return self.email

@@ -118,3 +118,13 @@ class LoginForm(AuthenticationForm):
             self.fields[field_name].widget.attrs.update({
                 'class': 'form-control'
             })
+
+
+class UserChangeForm(forms.ModelForm):
+    password = ReadOnlyPasswordHashField(
+        label=_('Password')
+    )
+
+    class Meta:
+        model = User
+        fields = ('email', 'password', 'is_active', 'is_superuser')
