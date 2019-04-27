@@ -13,8 +13,8 @@ def regist(request):
     if request.method == 'POST':
         regist_form = ItemForm(request.POST)
         if regist_form.is_valid():
-            item_form = regist_form.save()
-            return redirect('/item/item')
+            item_form = regist_form.save(request.user)
+            return redirect('/item/items')
     else:
         item_form = ItemForm()
 

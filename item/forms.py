@@ -23,19 +23,6 @@ class ItemForm(forms.ModelForm):
         widget=forms.Select, 
         choices=ItemType.CATEGORY_CHOICES
     )
-    '''
-    userMail = forms.EmailField(
-        label=_('Email'),
-        required=True,
-        widget=forms.EmailInput(
-            attrs={
-                'class': 'form-control',
-                'placeholder': _('Email address'),
-                'required': 'True',
-            }
-        )
-    )
-    '''
     deposit = forms.IntegerField(
         label=_('Deposit'),
         required=True,
@@ -103,9 +90,9 @@ class ItemForm(forms.ModelForm):
         fields = ('name', 'itemType', 'deposit', 'rentalFeePerHour', 'shippingMethod', 'location', 'maxRentTime', 'explanation')
 
 
-    def save(self, commit=True):
+    def save(self, user, commit=True):
         item = super(ItemForm, self).save(commit=False)
-        #item.email = models.Manager.normalize_email(self.cleaned_data['email'])
+        item.user = user
         if commit:
             item.save()
         return item

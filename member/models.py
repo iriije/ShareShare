@@ -7,12 +7,12 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class UserManager(BaseUserManager):
-    def create_user(self, email, nickname, password=None):
-        if not email:
+    def create_user(self, userMail, nickname, password=None):
+        if not userMail:
             raise ValueError(_('Users must have an email address'))
 
         user = self.model(
-            email=self.normalize_email(email),
+            userMail=self.normalize_email(userMail),
             nickname=nickname,
         )
 
@@ -20,9 +20,9 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
     
-    def create_superuser(self, email, nickname, password):
+    def create_superuser(self, userMail, nickname, password):
         user = self.create_user(
-            email=email,
+            userMail=userMail,
             password=password,
             nickname=nickname,
         )
@@ -33,7 +33,7 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    email = models.EmailField(
+    userMail = models.EmailField(
         verbose_name=_('Email address'),
         max_length=255,
         unique=True,
@@ -67,7 +67,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     
     objects = UserManager()
 
-    USERNAME_FIELD = 'email'
+    USERNAME_FIELD = 'userMail'
     REQUIRED_FIELDS = ['nickname',]
 
     class Meta:
@@ -80,4 +80,4 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.is_superuser
 
     def __str__(self):
-        return self.email
+        return self.userMail

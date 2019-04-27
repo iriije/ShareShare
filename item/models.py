@@ -1,9 +1,6 @@
 from django.db import models
 from django.utils import timezone
-
-
-class Sharer(models.Model):
-    userMail = models.CharField(max_length=100)
+from member.models import User
 
 class ItemType(models.Model):
     BOOK = 'B'
@@ -31,7 +28,7 @@ class Item(models.Model):
     name = models.CharField(max_length=20, help_text='공유하고 싶은 item의 이름을 입력해주세요.')
     itemType = models.ManyToManyField(ItemType)
     photo = models.ImageField()
-    #userMail = models.ForeignKey(Sharer,on_delete=models.DO_NOTHING)
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     deposit = models.IntegerField()
     rentalFeePerHour = models.IntegerField()
     

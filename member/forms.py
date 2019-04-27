@@ -7,7 +7,7 @@ from .models import User, UserManager
 from django.contrib.auth.forms import AuthenticationForm
 
 class SignupForm(forms.ModelForm):
-    email = forms.EmailField(
+    userMail = forms.EmailField(
         label=_('Email'),
         required=True,
         widget=forms.EmailInput(
@@ -52,7 +52,7 @@ class SignupForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('email', 'nickname')
+        fields = ('userMail', 'nickname')
 
     def clean_password2(self):
         password1 = self.cleaned_data.get("password1")
@@ -63,7 +63,7 @@ class SignupForm(forms.ModelForm):
 
     def save(self, commit=True):
         user = super(SignupForm, self).save(commit=False)
-        user.email = UserManager.normalize_email(self.cleaned_data['email'])
+        user.email = UserManager.normalize_email(self.cleaned_data['userMail'])
         user.set_password(self.cleaned_data["password1"])
         if commit:
             user.save()
@@ -84,11 +84,11 @@ class ShareeSignupForm(SignupForm):
 
     class Meta:
         model = User
-        fields = ('email', 'nickname', 'location')
+        fields = ('userMail', 'nickname', 'location')
 
     def save(self, commit=True):
         user = super(ShareeSignupForm, self).save(commit=False)
-        user.email = UserManager.normalize_email(self.cleaned_data['email'])
+        user.email = UserManager.normalize_email(self.cleaned_data['userMail'])
         user.set_password(self.cleaned_data["password1"])
         if commit:
             user.save()
@@ -98,11 +98,11 @@ class ShareeSignupForm(SignupForm):
 class SharerSignupForm(SignupForm):
     class Meta:
         model = User
-        fields = ('email', 'nickname')
+        fields = ('userMail', 'nickname')
 
     def save(self, commit=True):
         user = super(SharerSignupForm, self).save(commit=False)
-        user.email = UserManager.normalize_email(self.cleaned_data['email'])
+        user.email = UserManager.normalize_email(self.cleaned_data['userMail'])
         user.is_sharer = True
         user.set_password(self.cleaned_data["password1"])
         if commit:
@@ -127,4 +127,4 @@ class UserChangeForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('email', 'password', 'is_active', 'is_superuser')
+        fields = ('userMail', 'password', 'is_active', 'is_superuser')

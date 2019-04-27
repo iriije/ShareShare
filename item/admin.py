@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import Sharer,ItemType,Item
+from .models import ItemType,Item
 
-admin.site.register(Sharer)
+
 admin.site.register(ItemType)
 admin.site.register(Item)

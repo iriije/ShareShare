@@ -1,0 +1,29 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Rent{% endblock %}
+{% block content %}
+
+<div class="rent">
+	<form action="" method="post">
+		{% csrf_token %}
+		{% for field in rent_form %}
+			<div class="form-group">
+				{{ field.label_tag }}
+				{{ field }}
+				{% if field.errors %}
+					{% for error in field.errors %}
+					<span class="help-block">{{ error }}</span>
+					{% endfor %}
+				{% endif %}
+			</div>
+		{% endfor %}
+
+		{% if rent_form.non_field_errors %}
+			{% for error in rent_form.non_field_errors %}
+			<p class="text-danger"><b>{{ error }}</b></p>
+			{% endfor %}
+		{% endif %}
+		<button class="btn btn-primary btn-block">예약완료</button>
+	</form>
+</div>
+{% endblock %}

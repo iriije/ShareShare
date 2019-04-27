@@ -10,10 +10,10 @@ from .models import User
 class UserAdmin(BaseUserAdmin):
     form = UserChangeForm
     add_form = SignupForm
-    list_display = ('email', 'nickname', 'is_active', 'date_joined')
+    list_display = ('userMail', 'nickname', 'is_active', 'date_joined')
     list_filter = ('is_active',)
     fieldsets = (
-        (None, {'fields': ('email', 'password')}),
+        (None, {'fields': ('userMail', 'password')}),
         (_('Personal info'), {'fields': ('nickname', )}),
         (_('Permissions'), {'fields': ('is_active',)}),
         (_('added info'), {'fields': ('location', 'is_sharer')}),
@@ -25,7 +25,7 @@ class UserAdmin(BaseUserAdmin):
          ),
          (_('added info'), {'fields': ('location', 'is_sharer')}),
     )
-    search_fields = ('email','nickname')
+    search_fields = ('userMail','nickname')
     ordering = ('-date_joined',)
     filter_horizontal = ()
 
