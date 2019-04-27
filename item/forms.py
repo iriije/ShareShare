@@ -109,3 +109,10 @@ class ItemForm(forms.ModelForm):
         if commit:
             item.save()
         return item
+
+
+class SearchForm(forms.Form):
+    word = forms.CharField(label='')
+
+    
+

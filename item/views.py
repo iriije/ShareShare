@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from .models import Item
-from .forms import ItemForm
+from .forms import ItemForm, SearchForm
+from django.views.generic.edit import FormView
+from django.db.models import Q
 
 
 def items(request):
@@ -20,3 +22,19 @@ def regist(request):
         'item_form': item_form,
     }
     return render(request,'item/item_form.html', context)
+
+
+class SearchFormView(FormView):
+    form_class = SearchForm
+    template_name = 'main/index.html'
+
+    def form_valid(self, form):
+        word = '%s' %self.request.POST['word']
+        item_list = Item.objects.filter(
+            Q(name__icontains=word) | Q(explanation__icontains=word)
+        ).distinct()
+        context = {
+            'item_list': item_list,
+            'search_word': word
+        }
+        return render(self.request, 'item/items.html', context)
