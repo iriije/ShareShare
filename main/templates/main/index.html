@@ -13,11 +13,13 @@
     background-size: cover;
     ">
       <h1 class="display-3" style="color: white;">필요한 무엇이든 빌리세요!</h1>
-      <p class="lead" style="text-shadow: -1px 0 gray, 0 1px gray, 1px 0 gray, 0 -1px gray;">ShareShare 프로젝트는 곧 런칭될 예정입니다. 공유경제 사회에 한 발자국 앞서 가세요!</p>
+      <p class="lead" style="text-shadow: -1px 0 gray, 0 1px black, 1px 0 gray, 0 -1px gray;">ShareShare 프로젝트는 곧 런칭될 예정입니다. 공유경제 사회에 한 발자국 앞서 가세요!</p>
       <form action="." method="post">
           {% csrf_token %}
-          <li style="float:left"></li>{{ form.as_p }}</li>
-          <input class="btn btn-primary" style="float:left" type="submit">
+          <div class ="search-bar">
+          <input  type="text" placeholder="빌리실 물건은?">
+          <input class="btn" type="submit" value="검색">
+        </div>
       </form>
     </header>
 

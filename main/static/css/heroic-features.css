@@ -6,3 +6,31 @@
 body {
   padding-top: 56px;
 }
+
+.search-bar{
+  height: 40px;
+  width: 360px;
+  border: 2px solid #007bff;
+  background: #ffffff;
+  float: inherit
+}
+
+.search-bar input{
+  font-size: 16px;
+  width: 300px;
+  padding: 5px;
+  border: 0px;
+  outline: none;
+  float: left;
+}
+
+.search-bar .btn{
+  width: 50px;
+  height: 100%;
+  border: 0px;
+  background: #007bff;
+  outline: none;
+  float: right;
+  color: #ffffff;
+  border-radius: 0px;
+}
