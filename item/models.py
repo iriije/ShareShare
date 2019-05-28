@@ -1,6 +1,8 @@
 from django.db import models
+from django.conf import settings
 from django.utils import timezone
 from member.models import User
+from django.conf import settings
 
 class ItemType(models.Model):
     BOOK = 'B'
@@ -25,9 +27,9 @@ class ItemType(models.Model):
 
 
 class Item(models.Model):
+    image = models.ImageField(upload_to='images/')
     name = models.CharField(max_length=20, help_text='공유하고 싶은 item의 이름을 입력해주세요.')
     itemType = models.ManyToManyField(ItemType)
-    photo = models.ImageField()
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     deposit = models.IntegerField()
     rentalFeePerHour = models.IntegerField()
@@ -65,3 +67,6 @@ class Item(models.Model):
     uploadDate = models.DateTimeField(auto_now_add=True)
 
     objects = models.Manager()
+
+    def __str__(self):
+        return self.name

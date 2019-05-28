@@ -6,6 +6,11 @@ from .models import Item, ItemType
 
 
 class ItemForm(forms.ModelForm):
+    image = forms.ImageField(
+        label=_('image'),
+        required=True
+
+    )
     name = forms.CharField(
         label=_('Name'),
         required=True,
@@ -87,7 +92,8 @@ class ItemForm(forms.ModelForm):
 
     class Meta:
         model = Item
-        fields = ('name', 'itemType', 'deposit', 'rentalFeePerHour', 'shippingMethod', 'location', 'maxRentTime', 'explanation')
+        fields = ('image','name', 'itemType', 'deposit', 'rentalFeePerHour', 'shippingMethod', 'location', 'maxRentTime', 'explanation',)
+
 
 
     def save(self, user, commit=True):
