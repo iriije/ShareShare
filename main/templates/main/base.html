@@ -44,11 +44,11 @@
           </li>
           {% endif %}
           {% if user.is_authenticated %}
-          <li class="nav-item"><a class="nav-link" href="#">Profile</a></li>
-          <li class="nav-item"><a class="nav-link" href="{% url 'member:logout' %}">Logout</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'member:mypage' %}">My Page</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'member:logout' %}">Log Out</a></li>
           {% else %}
-          <li class="nav-item"><a class="nav-link" href="{% url 'member:login' %}">Login</a></li>
-          <li class="nav-item"><a class="nav-link" href="{% url 'member:signup' %}">Signup</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'member:login' %}">Log In</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'member:signup' %}">Sign Up</a></li>
           {% endif %}
           </li>
         </ul>

@@ -5,15 +5,11 @@
 
 
 <div class="container">
-        <ul>
-            {% if user.is_authenticated %}
-            <li class='btn btn-primary'><a href = "{% url 'item:regist' %}">글쓰기</a></li>
-            {% else %}
-            <li class='btn btn-primary'><a  href = "{% url 'member:login'%}">글을 쓰려면 로그인 하세요</a></li>
-            {% endif %}
+        <ul>            
+            <li class='btn btn-primary'><a href = "{% url 'member:charge' %}">크레딧 충전하기</a></li>
         </ul>
     
-    <div class="row text-center"> 
+    <div class="row text-center">
     {% if item_list %}   
     {% for item in item_list%}
 
@@ -30,7 +26,7 @@
                 <form action = "/rent/{{item.id}}/" method="post">
                   {% csrf_token %}
                   <button class="btn btn-primary btn-block">지금 빌리러가기</button>
-                </form>
+                </form>>
               </div>
             </div>
     </div>

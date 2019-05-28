@@ -1,0 +1,14 @@
+{% extends 'main/base.html' %}
+{% load staticfiles %}
+
+{% block title %}Charge Point{% endblock %}
+{% block content %}
+
+<script src="https://cdn.bootpay.co.kr/js/bootpay-3.0.1.min.js" type="application/javascript"></script>
+
+
+<div class="charge">
+    <input type="button" id="charge_button" class="btn btn-primary btn-block" value="1000" />
+    <script src="{% static 'js/pay.js' %}"></script>
+</div>
+{% endblock %}

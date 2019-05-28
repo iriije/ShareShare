@@ -10,4 +10,6 @@ urlpatterns = [
     url(r'^signup/$', views.signup, name='signup'),
     url(r'^signup_sharee/$', views.signupSharee, name='signup_sharee'),
     url(r'^signup_sharer/$', views.signupSharer, name='signup_sharer'),
+    url(r'^mypage/$', views.mypage, name='mypage'),
+    url(r'^charge/$', views.charge, name='charge'),
 ]

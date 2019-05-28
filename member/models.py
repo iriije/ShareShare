@@ -43,6 +43,10 @@ class User(AbstractBaseUser, PermissionsMixin):
         max_length=30,
         unique=True
     )
+    point = models.IntegerField(
+        verbose_name=_('Point'),
+        default=0
+    )
     location = models.CharField(
         verbose_name=_('Location'),
         max_length=30

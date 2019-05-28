@@ -16,14 +16,14 @@ class UserAdmin(BaseUserAdmin):
         (None, {'fields': ('userMail', 'password')}),
         (_('Personal info'), {'fields': ('nickname', )}),
         (_('Permissions'), {'fields': ('is_active',)}),
-        (_('added info'), {'fields': ('location', 'is_sharer')}),
+        (_('added info'), {'fields': ('location', 'is_sharer', 'point')}),
     )
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
             'fields': ('email', 'nickname', 'password1', 'password2')}
          ),
-         (_('added info'), {'fields': ('location', 'is_sharer')}),
+         (_('added info'), {'fields': ('location', 'is_sharer', 'point')}),
     )
     search_fields = ('userMail','nickname')
     ordering = ('-date_joined',)
