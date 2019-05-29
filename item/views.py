@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect
 from .models import Item
-from .forms import ItemForm, SearchForm
+from .forms import ItemForm, SearchForm, SortForm
 from django.views.generic.edit import FormView
 from django.db.models import Q
+from rent.models import Rent
+import datetime
 
 
 def items(request):
@@ -38,3 +40,29 @@ class SearchFormView(FormView):
             'search_word': word
         }
         return render(self.request, 'item/items.html', context)
+
+class SortFormView(FormView):
+    form_class = SortForm
+    template_name = 'item/items.html'
+    item_list = Item.objects.all().order_by('uploadDate')
+
+    def form_valid(self, form):
+        startDate = self.request.POST['startDate']
+        endDate = self.request.POST['endDate']
+
+        item_list = []
+        rent_list = Rent.objects.exclude(
+            rentDate__range=(startDate, endDate)
+        ).exclude(
+            duedate__range=(startDate, endDate)
+        )
+
+        for rent in rent_list:
+            item_list.append(rent.item)
+
+        context = {
+            'item_list': item_list
+        }
+        return render(self.request, 'item/items.html', context)
+        
+

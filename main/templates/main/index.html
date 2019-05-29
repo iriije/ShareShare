@@ -17,7 +17,7 @@
       <form action="." method="post">
           {% csrf_token %}
           <div class ="search-bar">
-          <input  type="text" placeholder="빌리실 물건은?">
+              {{ form.as_p }}
           <input class="btn" type="submit" value="검색">
         </div>
       </form>

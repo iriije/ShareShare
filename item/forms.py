@@ -106,5 +106,9 @@ class ItemForm(forms.ModelForm):
 class SearchForm(forms.Form):
     word = forms.CharField(label='')
 
+class SortForm(forms.Form):
+    startDate = forms.DateField(label='startDate')
+    endDate = forms.DateField(label='endDate')
+
     
 
