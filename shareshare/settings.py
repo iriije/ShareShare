@@ -25,7 +25,7 @@ SECRET_KEY = '6t%&r#qp2c0*u^q+!zl4ey&%xn9c3-%1izu2_**m4bpe)=@v&*'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.pythonanywhere.com']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.pythonanywhere.com', 'shareshare-env.kaguzs6ntt.us-west-2.elasticbeanstalk.com']
 
 
 AUTH_USER_MODEL = 'member.User'
