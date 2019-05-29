@@ -3,8 +3,105 @@
  * Copyright 2013-2019 Start Bootstrap
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-heroic-features/blob/master/LICENSE)
  */
+ :root {
+  --n1: #243743;
+  --n2: #28B78D;
+  --n3: #8A949B;
+  --n4: #FAFAFA;
+ }
+
 body {
   padding-top: 56px;
+}
+.navbar-logo{
+  background-image: url('/static/images/logo.png');
+  width:50px;
+  height:40px;
+  background-size: contain;
+  
+
+}
+
+.navbar {
+  background: #243743 !important;
+}
+
+.navbar-brand{
+  color:#FAFAFA !important;
+}
+
+.lead{
+  color: #FAFAFA !important;
+}
+
+div .login{
+  margin: 40px;
+  border: 2px solid #28B78D;
+  padding: 30px;
+  border-radius: 20px; 
+}
+
+div .item_form{
+  margin: 40px 0px 40px 0px;
+  border: 2px solid #28B78D;
+  padding: 30px;
+  border-radius: 20px; 
+}
+
+
+
+footer.py-5.bg-dark{
+  background: #243743 !important;
+}
+
+.btn-primary{
+  color:#FAFAFA;
+  background-color: #28B78D;
+  border-color: #28B78D;
+}
+
+.btn-primary:hover{
+  color:#FAFAFA;
+  background-color: #8A949B;
+  border-color: #8A949B;
+}
+
+li.btn-primary{
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+form > .btn-primary.btn-block{
+  margin-top: 0px;
+  margin-bottom: 0px
+}
+
+.btn-primary.btn-block{
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+a.btn.btn-primary{
+  color:#FAFAFA;
+  background-color: #28B78D;
+  border-color: #28B78D;
+}
+
+a.btn.btn-primary:hover{
+  color:#FAFAFA;
+  background-color: #8A949B;
+  border-color: #8A949B;
+}
+
+li.btn-primary{
+  color:#FAFAFA;
+  background-color: #28B78D;
+  border-color: #28B78D;
+}
+
+li.btn-primary > a{
+  color:#FAFAFA;
+  text-decoration: none;
 }
 
 .search-bar{

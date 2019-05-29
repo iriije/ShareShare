@@ -6,7 +6,7 @@
   <div class="container">
 
     <!-- Jumbotron Header -->
-    <header class="jumbotron my-4" style="background-image: url('{% static 'images/main.jpg' %}');
+    <header class="jumbotron my-4" style="background-image: url('{% static 'images/main1.png' %}');
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -16,10 +16,8 @@
       <p class="lead" style="text-shadow: -1px 0 gray, 0 1px black, 1px 0 gray, 0 -1px gray;">ShareShare 프로젝트는 곧 런칭될 예정입니다. 공유경제 사회에 한 발자국 앞서 가세요!</p>
       <form action="." method="post">
           {% csrf_token %}
-          <div class ="search-bar">
-          <input  type="text" placeholder="빌리실 물건은?">
-          <input class="btn" type="submit" value="검색">
-        </div>
+          <li class="search-bar" style="float:left"></li>{{ form.as_p }}</li>
+          <input class="btn btn-primary" style="float:left" type="submit">
       </form>
     </header>
 
