@@ -1,0 +1,75 @@
+{% extends 'main/base.html' %}
+{% load staticfiles %}
+
+{% block title %}Items{% endblock %}
+{% block content %}
+
+
+<div class="container">
+    <form action="." method="post">
+      {% csrf_token %}
+      <div>
+            {{ form.as_p }}
+        <input class="btn btn-primary" type="submit" value="검색">
+      </div>
+    </form>
+    <div class="row text-center"> 
+    {% if item_list_sorted %}
+    <h4>검색결과</h4>   
+    {% for item in item_list_sorted %}
+    <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card h-100">
+              {% if item.image %}
+              <img class="card-img-top" src="{{item.image.url}}" alt="">
+
+              {% endif %}
+              <div class="card-body">
+                <h4 class="card-title">{{item.name}}</h4>
+                <p class="card-text">{{item.explanation}}</p>
+                <p class="card-text">{{item.itemType.name}}</p>
+
+              </div>
+              <div class="card-footer">
+                <form action = "/rent/{{item.id}}/" method="post">
+                  {% csrf_token %}
+                  <button class="btn btn-primary btn-block">지금 빌리러가기</button>
+                </form>
+              </div>
+            </div>
+    </div>
+    {% endfor%}
+    {% else %}
+    {% endif %}
+    </div>
+    <div class="row text-center">
+    <h4>전체</h4>
+    {% if item_list_all %}
+    {% for item in item_list_all %}
+    <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card h-100">
+              {% if item.image %}
+              <img class="card-img-top" src="{{item.image.url}}" alt="">
+
+              {% endif %}
+              <div class="card-body">
+                <h4 class="card-title">{{item.name}}</h4>
+                <p class="card-text">{{item.explanation}}</p>
+                <p class="card-text">{{item.itemType.name}}</p>
+
+              </div>
+              <div class="card-footer">
+                <form action = "/rent/{{item.id}}/" method="post">
+                  {% csrf_token %}
+                  <button class="btn btn-primary btn-block">지금 빌리러가기</button>
+                </form>
+              </div>
+            </div>
+    </div>
+    {% endfor%}
+    </div>
+    {% else %}
+    {% endif %}
+    </div>
+</div>
+{% endblock %}
+

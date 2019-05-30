@@ -9,6 +9,7 @@
             <li class='btn btn-primary'><a href = "{% url 'member:charge' %}">크레딧 충전하기</a></li>
         </ul>
     
+    <h4>공유중인 아이템</h4>
     <div class="row text-center">
     {% if item_list %}   
     {% for item in item_list%}
@@ -19,14 +20,12 @@
               <div class="card-body">
                 <h4 class="card-title">{{item.name}}</h4>
                 <p class="card-text">{{item.explanation}}</p>
-                <p class="card-text">{{item.itemType.name}}</p>
-
               </div>
               <div class="card-footer">
                 <form action = "/rent/{{item.id}}/" method="post">
                   {% csrf_token %}
                   <button class="btn btn-primary btn-block">지금 빌리러가기</button>
-                </form>>
+                </form>
               </div>
             </div>
     </div>

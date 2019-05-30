@@ -4,6 +4,14 @@ from django.utils import timezone
 from member.models import User
 from django.conf import settings
 
+class Tag(models.Model):
+    name = models.CharField(max_length=140, unique=True)
+
+    objects = models.Manager()
+
+    def __str__(self):
+        return self.name
+
 class ItemType(models.Model):
     BOOK = 'B'
     CAMP = 'C'
@@ -19,6 +27,8 @@ class ItemType(models.Model):
         (ELSE, '사물/잡화')
     )
 
+    objects = models.Manager()
+
     name = models.CharField(max_length=10, choices = CATEGORY_CHOICES, default=ELSE)
 
 
@@ -33,6 +43,7 @@ class Item(models.Model):
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     deposit = models.IntegerField()
     rentalFeePerHour = models.IntegerField()
+    tag_set = models.ManyToManyField('Tag', blank=True)
     
     AVAILABLE = 'A'
     REPAIR = 'R'

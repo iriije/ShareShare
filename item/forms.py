@@ -107,8 +107,30 @@ class SearchForm(forms.Form):
     word = forms.CharField(label='')
 
 class SortForm(forms.Form):
-    startDate = forms.DateField(label='startDate')
-    endDate = forms.DateField(label='endDate')
+    startDate = forms.DateField(
+        label=_('Start Date'),
+        required=True,
+        widget=forms.DateInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': _('Start Date'),
+                'required': 'True',
+                'type': 'date'
+            }
+        )
+    )
+    endDate = forms.DateField(
+        label=_('End Date'),
+        required=True,
+        widget=forms.DateInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': _('End Date'),
+                'required': 'True',
+                'type': 'date'
+            }
+        )
+    )
 
     
 

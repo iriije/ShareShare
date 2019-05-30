@@ -8,6 +8,6 @@ from django.conf.urls.static import static
 app_name = "item"
 
 urlpatterns = [
-    url(r'^items/$', views.SortFormView.as_view(), name='items'),
+    url(r'^items/$', views.items, name='items'),
     url(r'^regist/$', views.regist, name='regist'),
 ]

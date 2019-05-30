@@ -9,13 +9,13 @@
     <form action="." method="post">
       {% csrf_token %}
       <div>
-            {{ form.as_p }}
-        <input class="btn" type="submit" value="검색">
+            {{ sort_form }}
+        <input class="btn btn-primary" style="float: right;" type="submit" value="검색">
       </div>
     </form>
     <div class="row text-center"> 
-    {% if item_list %}   
-    {% for item in item_list%}
+    {% if item_list %}
+    {% for item in item_list %}
     <div class="col-lg-3 col-md-6 mb-4">
             <div class="card h-100">
               {% if item.image %}
@@ -25,7 +25,11 @@
               <div class="card-body">
                 <h4 class="card-title">{{item.name}}</h4>
                 <p class="card-text">{{item.explanation}}</p>
-                <p class="card-text">{{item.itemType.name}}</p>
+                <p class="card-text">
+                  {% for tag in item.tag_set.all %}
+                    <a href="">#{{tag.name}}</a> &nbsp;
+                  {% endfor %}
+                </p>
 
               </div>
               <div class="card-footer">
@@ -37,10 +41,9 @@
             </div>
     </div>
     {% endfor%}
-    </div>
     {% else %}
-    no item
     {% endif %}
+    </div>
 </div>
 {% endblock %}
 

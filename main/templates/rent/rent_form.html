@@ -3,27 +3,49 @@
 {% block title %}Rent{% endblock %}
 {% block content %}
 
-<div class="rent">
-	<form action="" method="post">
-		{% csrf_token %}
-		{% for field in rent_form %}
-			<div class="form-group">
-				{{ field.label_tag }}
-				{{ field }}
-				{% if field.errors %}
-					{% for error in field.errors %}
-					<span class="help-block">{{ error }}</span>
-					{% endfor %}
-				{% endif %}
-			</div>
-		{% endfor %}
 
-		{% if rent_form.non_field_errors %}
-			{% for error in rent_form.non_field_errors %}
-			<p class="text-danger"><b>{{ error }}</b></p>
+	
+<div class="row text-center">
+	{% if item %}
+	<div class="col-lg-4 col-md-4 mb-4">
+		<div class="card h-80">
+		  	{% if item.image %}
+		  	<img class="card-img-top" src="{{item.image.url}}" alt="">
+		  	{% endif %}
+		  	<div class="card-body">
+				<h4 class="card-title">{{item.name}}</h4>
+				<p class="card-text">{{item.explanation}}</p>
+				<p class="card-text">보증금 : {{item.deposit}}</p>
+				<p class="card-text">시간 당 크레딧 : {{item.rentalFeePerHour}}</p>
+		  	</div>
+		  	<div class="card-footer">
+		  	</div>
+		</div>
+	</div>
+	{% endif %}
+	<div class="rent col-lg-6 col-md-6 mb-6">
+		<form action="" method="post">
+			{% csrf_token %}
+			{% for field in rent_form %}
+				<div class="form-group">
+					{{ field.label_tag }}
+					{{ field }}
+					{% if field.errors %}
+						{% for error in field.errors %}
+						<span class="help-block">{{ error }}</span>
+						{% endfor %}
+					{% endif %}
+				</div>
 			{% endfor %}
-		{% endif %}
-		<button class="btn btn-primary btn-block">예약완료</button>
-	</form>
+
+			{% if rent_form.non_field_errors %}
+				{% for error in rent_form.non_field_errors %}
+				<p class="text-danger"><b>{{ error }}</b></p>
+				{% endfor %}
+			{% endif %}
+			<button class="btn btn-primary btn-block">예약완료</button>
+		</form>
+	</div>
 </div>
+
 {% endblock %}
