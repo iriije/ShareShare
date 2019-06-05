@@ -7,11 +7,9 @@ from item.models import Item
 class Rent(models.Model):
     item = models.ForeignKey(Item, on_delete=models.DO_NOTHING)
     sharee = models.ForeignKey(User, on_delete=models.DO_NOTHING)
-    reserationTime = models.DateTimeField(auto_now_add=True)
-    rentDate = models.DateField()
-    rentTime = models.TimeField()
-    dueDate = models.DateField()
-    dueTime = models.TimeField()
+    reservationTime = models.DateTimeField(auto_now_add=True)
+    rentDateTime = models.DateTimeField(default=timezone.now)
+    dueDateTime = models.DateTimeField(default=timezone.now)
     extensionTime = models.DateTimeField(null=True)
 
     ONE = '1'

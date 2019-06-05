@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import ReadOnlyPasswordHashField
+from django.contrib.auth.forms import UserChangeForm, ReadOnlyPasswordHashField
 from django.utils.translation import ugettext_lazy as _
 
 from .models import User, UserManager
@@ -120,10 +120,7 @@ class LoginForm(AuthenticationForm):
             })
 
 
-class UserChangeForm(forms.ModelForm):
-    password = ReadOnlyPasswordHashField(
-        label=_('Password')
-    )
+class UserEditForm(UserChangeForm):
 
     class Meta:
         model = User

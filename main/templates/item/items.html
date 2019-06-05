@@ -6,14 +6,16 @@
 
 
 <div class="container">
+    <p>&nbsp;</p>
     <form action="." method="post">
       {% csrf_token %}
-      <div>
+      <div class="col-lg-3 col-md-6 mb-4" >
             {{ sort_form }}
         <input class="btn btn-primary" style="float: right;" type="submit" value="검색">
       </div>
     </form>
-    <div class="row text-center"> 
+    <p>&nbsp;</p>
+    <div class="row text-center">
     {% if item_list %}
     {% for item in item_list %}
     <div class="col-lg-3 col-md-6 mb-4">
@@ -27,7 +29,7 @@
                 <p class="card-text">{{item.explanation}}</p>
                 <p class="card-text">
                   {% for tag in item.tag_set.all %}
-                    <a href="">#{{tag.name}}</a> &nbsp;
+                    <a href="/item/{{tag.name}}/">#{{tag.name}}</a> &nbsp;
                   {% endfor %}
                 </p>
 

@@ -3,12 +3,12 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import Group
 from django.utils.translation import ugettext_lazy as _
 
-from .forms import SignupForm, UserChangeForm
+from .forms import SignupForm, UserEditForm
 from .models import User
 
 
 class UserAdmin(BaseUserAdmin):
-    form = UserChangeForm
+    form = UserEditForm
     add_form = SignupForm
     list_display = ('userMail', 'nickname', 'is_active', 'date_joined')
     list_filter = ('is_active',)

@@ -3,6 +3,7 @@ from django.contrib.auth import login as django_login, logout as django_logout, 
 from .forms import ShareeSignupForm, SharerSignupForm, LoginForm
 from .forms import LoginForm, SignupForm
 from item.models import Item
+from rent.models import Rent
 from django.db.models import Q
 
 
@@ -68,11 +69,26 @@ def signupSharer(request):
 
 
 def mypage(request):
-    item_list = Item.objects.filter(
-            Q(user__userMail__icontains=request.user.userMail)
+    user_email = request.user.userMail
+    user_nickname = request.user.nickname
+    user_credit = request.user.point
+
+    borrow_item_list = []
+    rents = Rent.objects.filter(
+        Q(sharee__userMail__icontains=request.user.userMail)
+    )
+    for rent in rents:
+        borrow_item_list.append(rent.item)
+    
+    my_item_list = Item.objects.filter(
+        Q(user__userMail__icontains=request.user.userMail)
     ).distinct()
     context = {
-        'item_list': item_list,
+        'user_email': user_email,
+        'user_nickname': user_nickname,
+        'user_credit': user_credit,
+        'my_item_list': my_item_list,
+        'borrow_item_list': borrow_item_list,
     }
     return render(request, 'member/mypage.html', context)
 

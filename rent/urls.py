@@ -5,5 +5,6 @@ from . import views
 app_name = "rent"
 
 urlpatterns = [
-    url(r'(?P<item_id>\d+)/$', views.rent, name='rent'),
+    #url(r'(?P<item_id>\d+)/$', views.rent, name='rent'),
+    path('<int:item_id>/', views.rent, name='rent'),
 ]

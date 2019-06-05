@@ -5,35 +5,80 @@
 
 
 <div class="container">
-        <ul>            
-            <li class='btn btn-primary'><a href = "{% url 'member:charge' %}">크레딧 충전하기</a></li>
-        </ul>
-    
-    <h4>공유중인 아이템</h4>
-    <div class="row text-center">
-    {% if item_list %}   
-    {% for item in item_list%}
+  <p>&nbsp;</p>
+  <h4>내 정보</h4>
+  <p>&nbsp;</p>
+    <div class="card h-30">
+      <div class="card-body">
+        <h4 class="card-title">{{user_email}}</h4>
+        <p class="card-text">닉네임: {{user_nickname}}</p>
+        <p class="card-text">보유 크레딧: {{user_credit}}</p>
+      </div>
+      <div class="card-footer">
+        <form action = "{% url 'member:charge' %}" method="post">
+          {% csrf_token %}
+          <button class="btn btn-primary btn-block" style="float: right">크레딧 충전하기</button>
+        </form>
+      </div>
+    </div>
+  
 
-    <div class="col-lg-3 col-md-6 mb-4">
-            <div class="card h-100">
-              <img class="card-img-top" src="{{item.image.url}}" alt="">
-              <div class="card-body">
-                <h4 class="card-title">{{item.name}}</h4>
-                <p class="card-text">{{item.explanation}}</p>
-              </div>
-              <div class="card-footer">
-                <form action = "/rent/{{item.id}}/" method="post">
-                  {% csrf_token %}
-                  <button class="btn btn-primary btn-block">지금 빌리러가기</button>
-                </form>
-              </div>
+  <p>&nbsp;</p>
+  <h4>빌린 아이템</h4>
+  <p>&nbsp;</p>
+  <div class="row text-center">
+    {% if borrow_item_list %}   
+    {% for item in borrow_item_list%}
+  
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card h-100">
+            <img class="card-img-top" src="{{item.image.url}}" alt="">
+            <div class="card-body">
+              <h4 class="card-title">{{item.name}}</h4>
+              <p class="card-text">{{item.explanation}}</p>
             </div>
-    </div>
+            <div class="card-footer">
+              <form action = "/rent/{{item.id}}/" method="post">
+                {% csrf_token %}
+                <button class="btn btn-primary btn-block">반납하기</button>
+              </form>
+            </div>
+        </div>
+      </div>
     {% endfor%}
-    </div>
     {% else %}
     no item
     {% endif %}
+    </div>
+
+
+  <p>&nbsp;</p>
+  <h4>내놓은 아이템</h4>
+  <p>&nbsp;</p>
+  <div class="row text-center">
+  {% if my_item_list %}   
+  {% for item in my_item_list%}
+
+    <div class="col-lg-3 col-md-6 mb-4">
+      <div class="card h-100">
+          <img class="card-img-top" src="{{item.image.url}}" alt="">
+          <div class="card-body">
+            <h4 class="card-title">{{item.name}}</h4>
+            <p class="card-text">{{item.explanation}}</p>
+          </div>
+          <div class="card-footer">
+            <form action = "/rent/{{item.id}}/" method="post">
+              {% csrf_token %}
+              <button class="btn btn-primary btn-block">아이템 정보수정</button>
+            </form>
+          </div>
+      </div>
+    </div>
+  {% endfor%}
+  {% else %}
+  no item
+  {% endif %}
+  </div>
 </div>
 {% endblock %}
 

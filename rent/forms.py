@@ -3,68 +3,53 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 from item.models import Item
 
+from datetime import datetime, timedelta
+
 from .models import Rent
 
 
 class RentForm(forms.ModelForm):
-    rentDate = forms.DateField(
-        label=_('Rent Date'),
+    rentDateTime = forms.DateTimeField(
+        label=_('Rent Date Time'),
         required=True,
-        widget=forms.DateInput(
+        input_formats=['%Y-%m-%dT%H:%M'],
+        widget=forms.DateTimeInput(
             attrs={
                 'class': 'form-control',
-                'placeholder': _('Start Date'),
+                'placeholder': _('Start Date Time'),
                 'required': 'True',
-                'type': 'date'
+                'type': 'datetime-local'
             }
         )
     )
-    rentTime = forms.TimeField(
-        label=_('Rent Time'),
+    
+    dueDateTime = forms.DateTimeField(
+        label=_('Due Date Time'),
         required=True,
-        widget=forms.TimeInput(
+        input_formats=['%Y-%m-%dT%H:%M'],
+        widget=forms.DateTimeInput(
             attrs={
                 'class': 'form-control',
-                'placeholder': _('Start Time'),
+                'placeholder': _('End Date Time'),
                 'required': 'True',
-                'type': 'time'
-            }
-        )
-    )
-    dueDate = forms.DateField(
-        label=_('Due Date'),
-        required=True,
-        widget=forms.DateInput(
-            attrs={
-                'class': 'form-control',
-                'placeholder': _('End Date'),
-                'required': 'True',
-                'type': 'date'
-            }
-        )
-    )
-    dueTime = forms.TimeField(
-        label=_('Due Time'),
-        required=True,
-        widget=forms.TimeInput(
-            attrs={
-                'class': 'form-control',
-                'placeholder': _('End Time'),
-                'required': 'True',
-                'type': 'time'
+                'type': 'datetime-local'
             }
         )
     )
 
+
     class Meta:
         model = Rent
-        fields = ('rentDate', 'rentTime', 'dueDate', 'dueTime')
+        fields = ('rentDateTime', 'dueDateTime')
 
     def save(self, item_id, user, commit=True):
         rent = super(RentForm, self).save(commit=False)
         item = Item.objects.get(id = item_id)
         rent.item = item
         rent.sharee = user
+        user.point -= item.rentalFeePerHour * int((rent.dueDateTime - rent.rentDateTime).seconds / 3600)
+
         if commit:
             rent.save()
+            user.save()
         return rent

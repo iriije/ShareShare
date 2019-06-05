@@ -13,11 +13,11 @@ def items(request):
     if request.method == 'POST':
         sort_form = SortForm(request.POST)
         if sort_form.is_valid():
-            startDate = request.POST['startDate']
-            endDate = request.POST['endDate']
+            startDateTime = request.POST['startDateTime']
+            endDateTime = request.POST['endDateTime']
 
             rent_list = Rent.objects.filter(
-                Q(rentDate__range=(startDate, endDate)) | Q(dueDate__range=(startDate, endDate))
+                Q(rentDateTime__range=(startDateTime, endDateTime)) | Q(dueDateTime__range=(startDateTime, endDateTime))
             ).distinct()
             rentItemId_list = []
 
@@ -57,11 +57,12 @@ def regist(request):
             with open(imageFile, 'rb') as image:
                 response = client.detect_labels(Image={'Bytes': image.read()})
             for label in response['Labels']:
-                tags.append(label['Name'])
+                if float(label['Confidence']) > 90:
+                    tags.append(label['Name'])
             if tags:
                 for tag in tags:
-                    tag = Tag.objects.get_or_create(name=tag)
-                    item.tag_set.add(tag)
+                    tag_obj, created = Tag.objects.get_or_create(name=tag)
+                    item.tag_set.add(tag_obj)
         
             return redirect('/item/items')
     else:
@@ -72,18 +73,10 @@ def regist(request):
     }
     return render(request,'item/item_form.html', context)
 
-
-class SearchFormView(FormView):
-    form_class = SearchForm
-    template_name = 'main/index.html'
-
-    def form_valid(self, form):
-        word = '%s' %self.request.POST['word']
-        item_list = Item.objects.filter(
-            Q(name__icontains=word) | Q(explanation__icontains=word)
-        ).distinct()
-        context = {
-            'item_list': item_list,
-            'search_word': word
-        }
-        return render(self.request, 'item/items.html', context)
+def search_tag(request, tag_name):
+    item_list = Item.objects.filter(tag_set__in=[Tag.objects.get(name=tag_name)])
+    context = {
+        'tag_name': tag_name,
+        'item_list': item_list,
+    }
+    return render(request, 'item/item_list_by_tag.html', context)
