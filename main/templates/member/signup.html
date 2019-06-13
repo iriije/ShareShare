@@ -4,7 +4,25 @@
 {% block content %}
 
 <div class="sel">
-    <a class="btn btn-primary btn-block" href="{% url 'member:signup_sharee' %}">Sharee</a>
-	<a class="btn btn-primary btn-block" href="{% url 'member:signup_sharer' %}">Sharer</a>
+        <div class="card h-100">
+                <img class="card-img-top" src="" alt="">
+                <div class="card-body">
+                  <h4 class="card-title">쉐어리 회원가입</h4>
+                  <p class="card-text">크레딧을 지불하고 물건을 빌려요!</p>
+                </div>
+                <div class="card-footer">
+                    <a class="btn btn-primary btn-block" href="{% url 'member:signup_sharee' %}">가입하기</a>
+                </div>
+        </div>
+        <div class="card h-100">
+                <img class="card-img-top" src="" alt="">
+                <div class="card-body">
+                  <h4 class="card-title">쉐어러 회원가입</h4>
+                  <p class="card-text">물건을 빌려주고 크레딧을 받아요!</p>
+                </div>
+                <div class="card-footer">
+                    <a class="btn btn-primary btn-block" href="{% url 'member:signup_sharer' %}">가입하기</a>
+                </div>
+        </div>
 </div>
 {% endblock %}

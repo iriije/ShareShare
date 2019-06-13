@@ -49,6 +49,7 @@ def index(request):
 
 
 def recommend(request):
+    item_list = []
     if request.user.is_authenticated:
         rent_list = Rent.objects.filter(
             Q(sharee__nickname=request.user.nickname)
@@ -62,13 +63,12 @@ def recommend(request):
                 tag = max(set(tag_list), key=tag_list.count)
                 input_tags.append(tag.name)
                 tag_list.remove(tag)
-        rnn = RNN()
-        res = rnn.test(input_tags)
-        res_tag = res[0]
-        item_list = Item.objects.filter(tag_set__in=[Tag.objects.get(name=res_tag)])
+        if len(input_tags) > 0: 
+            rnn = RNN()
+            res = rnn.test(input_tags)
+            res_tag = res[0]
+            item_list = Item.objects.filter(tag_set__in=[Tag.objects.get(name=res_tag)])
 
-    else: 
-        item_list = []
     context = {
         'item_list': item_list,
     }

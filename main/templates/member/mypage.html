@@ -6,7 +6,7 @@
 
 <div class="container">
   <p>&nbsp;</p>
-  <h4>내 정보</h4>
+  <h3>내 정보</h3>
   <p>&nbsp;</p>
     <div class="card h-30">
       <div class="card-body">
@@ -24,7 +24,7 @@
   
 
   <p>&nbsp;</p>
-  <h4>빌린 아이템</h4>
+  <h3>빌린 아이템</h3>
   <p>&nbsp;</p>
   <div class="row text-center">
     {% if borrow_item_list %}   
@@ -53,7 +53,7 @@
 
 
   <p>&nbsp;</p>
-  <h4>내놓은 아이템</h4>
+  <h3>내놓은 아이템</h3>
   <p>&nbsp;</p>
   <div class="row text-center">
   {% if my_item_list %}   
@@ -67,7 +67,7 @@
             <p class="card-text">{{item.explanation}}</p>
           </div>
           <div class="card-footer">
-            <form action = "/rent/{{item.id}}/" method="post">
+            <form action = "/item/{{item.id}}/" method="post">
               {% csrf_token %}
               <button class="btn btn-primary btn-block">아이템 정보수정</button>
             </form>

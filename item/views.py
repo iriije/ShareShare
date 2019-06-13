@@ -2,7 +2,7 @@ import boto3
 
 from django.shortcuts import render, redirect
 from .models import Item, Tag
-from .forms import ItemForm, SearchForm, SortForm
+from .forms import ItemForm, ItemUpdateForm, SearchForm, SortForm
 from django.views.generic.edit import FormView
 from django.db.models import Q
 from rent.models import Rent
@@ -72,6 +72,36 @@ def regist(request):
         'item_form': item_form,
     }
     return render(request,'item/item_form.html', context)
+
+def update(request, item_id):
+    item = Item.objects.get(id=item_id)
+    if request.method == 'POST':
+        item_update_form = ItemUpdateForm(request.POST)
+        if item_update_form.is_valid():
+            item.name = item_update_form.cleaned_data['name']
+            item.deposit = item_update_form.cleaned_data['deposit']
+            item.rentalFeePerHour = item_update_form.cleaned_data['rentalFeePerHour']
+            item.shippingMethod = item_update_form.cleaned_data['shippingMethod']
+            item.location = item_update_form.cleaned_data['location']
+            item.maxRentTime = item_update_form.cleaned_data['maxRentTime']
+            item.explanation = item_update_form.cleaned_data['explanation']
+            item.save()
+        
+            return redirect('/member/mypage')
+    else:
+        item_update_form = ItemUpdateForm()
+
+    context = {
+        'item_update_form': item_update_form,
+        'item_id': item_id,
+    }
+    return render(request,'item/item_update_form.html', context)
+
+def delete(request, item_id):
+    item = Item.objects.get(id=item_id)
+    if request.user.nickname==item.user.nickname:
+        item.delete()
+
 
 def search_tag(request, tag_name):
     item_list = Item.objects.filter(tag_set__in=[Tag.objects.get(name=tag_name)])

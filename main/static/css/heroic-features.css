@@ -35,17 +35,40 @@ body {
 }
 
 div .login{
-  margin: 40px;
+  margin: 40px auto;
   border: 2px solid #28B78D;
   padding: 30px;
   border-radius: 20px; 
 }
 
 div .item_form{
+  margin: 40px auto 40px auto;
+  border: 2px solid #28B78D;
+  padding: 30px;
+  border-radius: 20px; 
+}
+
+div .signup{
+  margin: 40px auto 40px auto;
+  border: 2px solid #28B78D;
+  padding: 30px;
+  border-radius: 20px; 
+}
+
+div .rent{
   margin: 40px 0px 40px 0px;
   border: 2px solid #28B78D;
   padding: 30px;
   border-radius: 20px; 
+}
+
+div .sel{
+  margin: 40px auto;
+}
+
+div .sel .card{
+  margin: 0 20px;
+  float: left;
 }
 
 
@@ -119,5 +142,14 @@ li.btn-primary > a{
   border: 0px;
   outline: none;
   float: left;
+}
+
+h3 {
+  border-left: 5px solid #28B78D;
+  border-bottom: 3px solid #8A949B;
+  border-top: 1px solid #8A949B;
+  border-right: 1px solid #8A949B;
+  border-radius: 5px;
+  padding: 5px 5px;
 }
 

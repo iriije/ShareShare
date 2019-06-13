@@ -10,7 +10,11 @@ import os
 class RNN():
   def __init__(self):
     # self.data I/O
-    self.data = open('rnn/data.txt', 'r').read().split() # should be simple plain text file
+    self.path = os.path.dirname(os.path.abspath(__file__))
+    self.param_file = os.path.join(self.path, 'params.pkl')
+    self.data_file = os.path.join(self.path, 'data.txt')
+    with open(self.data_file, 'r') as df:
+      self.data = df.read().split() # should be simple plain text file
     self.words = sorted(set(self.data))
     self.data_size, self.vocab_size = len(self.data), len(self.words)
     print('Started with: data has {ds} words, {vs} unique.\n----'.format(ds=self.data_size, vs=self.vocab_size))
@@ -27,8 +31,8 @@ class RNN():
     self.bh = np.zeros((self.hidden_size, 1)) # hidden bias
     self.by = np.zeros((self.vocab_size, 1)) # output bias
 
-    if os.path.isfile('rnn/params.pkl'):
-      with open("rnn/params.pkl", 'rb') as f:
+    if os.path.isfile(self.param_file):
+      with open(self.param_file, 'rb') as f:
         self.Wxh, self.Whh, self.Why, self.bh, self.by = pickle.load(f)
         print("param loaded\n----")
 
@@ -131,5 +135,6 @@ class RNN():
       n += 1 # iteration counter
 
       if n == 10000:
-        with open('rnn/params.pkl','wb') as f:
+        with open(self.param_file,'wb') as f:
           pickle.dump([self.Wxh, self.Whh, self.Why, self.bh, self.by], f)
+        break

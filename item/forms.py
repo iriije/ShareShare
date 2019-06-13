@@ -88,12 +88,9 @@ class ItemForm(forms.ModelForm):
         )
     )
 
-
     class Meta:
         model = Item
         fields = ('image', 'name', 'itemType', 'deposit', 'rentalFeePerHour', 'shippingMethod', 'location', 'maxRentTime', 'explanation',)
-
-
 
     def save(self, user, commit=True):
         item = super(ItemForm, self).save(commit=False)
@@ -101,6 +98,79 @@ class ItemForm(forms.ModelForm):
         if commit:
             item.save()
         return item
+
+class ItemUpdateForm(forms.Form):
+    name = forms.CharField(
+        label=_('Name'),
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': _('input item name'),
+                'required': 'True',
+            }
+        )
+    )
+    deposit = forms.IntegerField(
+        label=_('Deposit'),
+        required=True,
+        widget=forms.NumberInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': _('Deposit'),
+                'required': 'True',
+            }
+        )
+    )
+    rentalFeePerHour = forms.IntegerField(
+        label=_('RentalFee'),
+        required=True,
+        widget=forms.NumberInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': _('Rental Fee'),
+                'required': 'True',
+            }
+        )
+    )
+    shippingMethod = forms.CharField(
+        label=_('Shipping Method'),
+        required=True,
+        widget=forms.Select(choices=Item.SHIPPINGMETHOD_CHOICES)
+    )
+    location = forms.CharField(
+        label=_('Location'),
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': _('input location'),
+                'required': 'True',
+            }
+        )
+    )
+    maxRentTime = forms.IntegerField(
+        label=_('RentTime'),
+        required=True,
+        widget=forms.NumberInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': _('Rent Time'),
+                'required': 'True',
+            }
+        )
+    )
+    explanation = forms.CharField(
+        label=_('Explanation'),
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': _('Explain your item'),
+                'required': 'True',
+            }
+        )
+    )
 
 
 class SearchForm(forms.Form):
