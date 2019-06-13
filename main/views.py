@@ -1,13 +1,12 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
-
 from django.db.models import Q
 
-from item.models import Item
+from item.models import Item, Tag
 from item.forms import SearchForm
-
 from rent.models import Rent
+from rnn.rnn import RNN
   
 def index(request):
     if request.method == 'POST':
@@ -25,22 +24,20 @@ def index(request):
     
     else:
         search_form = SearchForm()
-
-        if request.user:
+        rent_list = []
+        if request.user.is_authenticated:
             rent_list = Rent.objects.filter(
                 Q(sharee__nickname=request.user.nickname)
             )
-            tag_list = []
-            for rent in rent_list:
-                print(rent.item.name)
-                tag_list += rent.item.tag_set.all()
-            
-    
-            if len(tag_list)>0:
-                tag = max(set(tag_list), key=tag_list.count)
-                item_list = Item.objects.filter(tag__name=tag.name)
-            else:
-                item_list = []
+        tag_list = []
+        for rent in rent_list:
+            tag_list += rent.item.tag_set.all()
+
+        if len(tag_list) > 0:
+            tag = max(set(tag_list), key=tag_list.count)
+            item_list = Item.objects.filter(tag_set__in=[tag])
+        else:
+            item_list = []
 
     context = {
         'search_form': search_form,
@@ -50,4 +47,33 @@ def index(request):
 
     return HttpResponse(template.render(context, request))
 
+
+def recommend(request):
+    if request.user.is_authenticated:
+        rent_list = Rent.objects.filter(
+            Q(sharee__nickname=request.user.nickname)
+        )
+        tag_list = []
+        for rent in rent_list:
+            tag_list += rent.item.tag_set.all()
+        input_tags = []
+        if len(tag_list) > 0:
+            for i in range(min(3, len(tag_list))):
+                tag = max(set(tag_list), key=tag_list.count)
+                input_tags.append(tag.name)
+                tag_list.remove(tag)
+        rnn = RNN()
+        res = rnn.test(input_tags)
+        res_tag = res[0]
+        item_list = Item.objects.filter(tag_set__in=[Tag.objects.get(name=res_tag)])
+
+    else: 
+        item_list = []
+    context = {
+        'item_list': item_list,
+    }
+    template = loader.get_template('main/index.html')
+
+    return HttpResponse(template.render(context, request))
+    
 	

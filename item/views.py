@@ -57,7 +57,7 @@ def regist(request):
             with open(imageFile, 'rb') as image:
                 response = client.detect_labels(Image={'Bytes': image.read()})
             for label in response['Labels']:
-                if float(label['Confidence']) > 90:
+                if float(label['Confidence']) > 0:
                     tags.append(label['Name'])
             if tags:
                 for tag in tags:

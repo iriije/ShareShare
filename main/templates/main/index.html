@@ -14,15 +14,20 @@
     ">
       <h1 class="display-3" style="color: white;">필요한 무엇이든 빌리세요!</h1>
       <p class="lead" style="text-shadow: -1px 0 gray, 0 1px black, 1px 0 gray, 0 -1px gray;">ShareShare 프로젝트는 곧 런칭될 예정입니다. 공유경제 사회에 한 발자국 앞서 가세요!</p>
+      {% if search_form %}
       <form style="float: right" action="." method="post">
           {% csrf_token %}
           {{ search_form }}
           <input class="btn btn-primary" type="submit" value='검색'>
       </form>
+      {% endif %}
     </header>
 
     {% if user.is_authenticated %}
-    <h4>추천</h4>
+    <div>
+      <h4 style="float: left">추천 아이템</h4>
+      <input type="button" class="btn btn-primary btn-block col-lg-3 col-md-6 mb-4" style="float: left" value="인공지능 추천(Beta)" onclick="location.href='/main/recommend/'"/>
+    </div>
     <div class="row text-center">
         {% if item_list %}
         {% for item in item_list %}

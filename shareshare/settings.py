@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'member',
     'item',
     'rent',
+    'rnn',
 ]
 
 LOGIN_URL = '/member/login/'
